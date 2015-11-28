@@ -1,17 +1,15 @@
 OBJS =		glogin.o
 
-LIBS =		-lSDLmain -Wl,-framework,AppKit -lSDL -Wl,-framework,Cocoa
+LIBS =		$(shell sdl2-config --libs)
 
-LIBDIRS =	-L/opt/local/lib
-
-INCLUDES = 	-I/opt/local/include/SDL -D_GNU_SOURCE=1 -D_THREAD_SAFE
+INCLUDES = 	$(shell sdl2-config --cflags)
 
 TARGET =	glogin
 
-CXXFLAGS =	-O2 -g -Wall -fmessage-length=0 $(INCLUDES) 
+CXXFLAGS =	-O2 -g -Wall -std=c++11 -fmessage-length=0 $(INCLUDES) 
 
 $(TARGET):	$(OBJS)
-	$(CXX) -o $(TARGET) $(OBJS) $(LIBDIRS) $(LIBS)
+	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
 
 all:	$(TARGET)
 
