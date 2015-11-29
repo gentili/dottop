@@ -13,13 +13,13 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-	int drivercount = SDL_GetNumVideoDrivers();
-	for (int i = 0; i < drivercount; i++) {
+	auto drivercount = SDL_GetNumVideoDrivers();
+	for (auto i = 0; i < drivercount; i++) {
 		auto driver = SDL_GetVideoDriver(i);
 		cout << driver << "\n";
 	}
-	return 0;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+		cerr << "ERROR: SDL_Init() - " << SDL_GetError();
 		return 1;
 	}
 	SDL_Window * win = SDL_CreateWindow("glogin",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,0);
