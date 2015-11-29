@@ -13,18 +13,20 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-	auto drivercount = SDL_GetNumVideoDrivers();
-	for (auto i = 0; i < drivercount; i++) {
-		auto driver = SDL_GetVideoDriver(i);
-		cout << driver << "\n";
-	}
-	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-		cerr << "ERROR: SDL_Init() - " << SDL_GetError();
+        
+	if (SDL_Init(0) < 0) {
+		cerr << "ERROR: SDL_Init() - " << SDL_GetError() << endl;
 		return 1;
 	}
+        if (SDL_VideoInit("directfb") != 0) {
+                if (SDL_VideoInit(NULL) != 0) {
+                    cerr << "ERROR: SDL_VideoInit() - " << SDL_GetError() << endl;
+                    return 1;
+                }
+        }
 	SDL_Window * win = SDL_CreateWindow("glogin",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,640,480,0);
 	if (win == NULL) {
-		cerr << "ERROR: SDL_CreateWindow() - " << SDL_GetError();
+		cerr << "ERROR: SDL_CreateWindow() - " << SDL_GetError() << endl;
 		return 1;
 	}
 
@@ -39,6 +41,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	cout << "done" << endl;
+        SDL_VideoQuit();
 	SDL_Quit();
 	return 0;
 }
