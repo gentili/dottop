@@ -13,7 +13,7 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
-	if (SDL_Init(0) < 0) {
+	if (SDL_Init(0) != 0) {
 		cerr << "ERROR: SDL_Init() - " << SDL_GetError() << endl;
 		return 1;
 	}
@@ -30,6 +30,14 @@ int main(int argc, char *argv[]) {
 		cerr << "ERROR: SDL_CreateWindow() - " << SDL_GetError() << endl;
 		return 1;
 	}
+	SDL_Renderer * rnd = SDL_CreateRenderer(win,-1,SDL_RENDERER_SOFTWARE);
+	if (rnd == NULL) {
+		cerr << "ERROR: SDL_CreateRenderer() - " << SDL_GetError() << endl;
+		return 1;
+	}
+	SDL_SetRenderDrawColor(rnd,100,0,0,255);
+	SDL_RenderClear(rnd);
+	SDL_RenderPresent(rnd);
 
 	// Main loop
 	bool isRunning = true;
