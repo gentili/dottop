@@ -1,4 +1,4 @@
-OBJS =		glogin.o
+OBJS =		glogin.o SDLManager.o
 
 LIBS =		$(shell sdl2-config --libs)
 

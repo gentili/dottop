@@ -3,13 +3,21 @@
 // Author      : Michael Gentili
 // Version     :
 // Copyright   : Copyright 2015
-// Description : Hello World in C, Ansi-style
+// Description : retro graphical login interface
 //============================================================================
 
 #include <SDL.h>
 #include <iostream>
+#include "SDLManager.h"
 
 using namespace std;
+
+void sdl_abort(const char* errstr) {
+    cerr << "ABORT: " << errstr << " - " << SDL_GetError() << endl;
+    SDL_VideoQuit();
+    SDL_Quit();
+    exit(1);
+}
 
 int main(int argc, char *argv[]) {
 
@@ -27,60 +35,40 @@ int main(int argc, char *argv[]) {
     }
 
     SDL_DisplayMode mode;
-    for (int d = 0; d < SDL_GetNumVideoDisplays(); d++) {
-        for (int m = 0; m < SDL_GetNumDisplayModes(0); m++) {
-            SDL_GetDisplayMode(d, m, &mode);
-            cout << d << ":" << mode.w << "," << mode.h << " " << mode.format
-                    << endl;
-            if ((mode.w == 640) && (mode.h == 480)) {
-                break;
-            }
+    for (int m = 0; m < SDL_GetNumDisplayModes(0); m++) {
+        SDL_GetDisplayMode(0, m, &mode);
+        cout << mode.w << "," << mode.h << " " << mode.format
+                << endl;
+        if ((mode.w == 640) && (mode.h == 480)) {
+            break;
         }
+    }
+
+    if ((mode.w != 640) || (mode.h != 480)) {
+        sdl_abort("640x480 mode not available");
     }
 
     SDL_Window * win = SDL_CreateWindow("glogin", SDL_WINDOWPOS_CENTERED,
-    SDL_WINDOWPOS_CENTERED, mode.w, mode.h, SDL_WINDOW_FULLSCREEN);
-    if (win == NULL) {
-        cerr << "ERROR: SDL_CreateWindow() - " << SDL_GetError() << endl;
-        SDL_VideoQuit();
-        SDL_Quit();
-        return 1;
-    }
-    if (SDL_SetWindowDisplayMode(win, &mode) != 0) {
-        cerr << "ERROR: SDL_SetWindowDisplayMode() - " << SDL_GetError()
-                << endl;
-        SDL_VideoQuit();
-        SDL_Quit();
-        return 1;
-    }
-    if (SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN) != 0) {
-        cerr << "ERROR: SDL_SetWindowFullscreen() - " << SDL_GetError() << endl;
-        SDL_VideoQuit();
-        SDL_Quit();
-        return 1;
-    }
+    SDL_WINDOWPOS_CENTERED, mode.w, mode.h, 0);// SDL_WINDOW_FULLSCREEN);
+    if (win == NULL)
+        sdl_abort("SDL_CreateWindow()");
+
+    /*
+    if (SDL_SetWindowDisplayMode(win, &mode) != 0)
+        sdl_abort("SDL_SetWindowDisplayMode()");
+
+    if (SDL_SetWindowFullscreen(win, SDL_WINDOW_FULLSCREEN) != 0)
+        sdl_abort("SDL_SetWindowFullscreen()");
+    */
+
     SDL_Renderer * rnd = SDL_CreateRenderer(win, -1, SDL_RENDERER_SOFTWARE);
-    if (rnd == NULL) {
-        cerr << "ERROR: SDL_CreateRenderer() - " << SDL_GetError() << endl;
-        SDL_VideoQuit();
-        SDL_Quit();
-        return 1;
-    }
-    SDL_SetRenderDrawColor(rnd, 100, 0, 0, 255);
-    SDL_RenderClear(rnd);
-    SDL_RenderPresent(rnd);
+    if (rnd == NULL)
+        sdl_abort("SDL_CreateRenderer()");
+
+    SDL_ShowCursor(0);
 
     // Main loop
-    bool isRunning = true;
-    cout << "start" << endl;
-    while (isRunning) {
-        SDL_Event event;
-        if (SDL_PollEvent(&event) && event.type == SDL_QUIT) {
-            cout << "quit" << endl;
-            isRunning = false;
-        }
-    }
-    cout << "done" << endl;
+    SDLManager::mainLoop(win, rnd);
     SDL_VideoQuit();
     SDL_Quit();
     return 0;
