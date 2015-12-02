@@ -1,4 +1,4 @@
-OBJS =		glogin.o SDLManager.o
+OBJS =		main.o SDLManager.o SDLWidget.o
 
 LIBS =		$(shell sdl2-config --libs)
 
@@ -14,4 +14,4 @@ $(TARGET):	$(OBJS)
 all:	$(TARGET)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f *.o $(TARGET)
