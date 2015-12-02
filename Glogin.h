@@ -5,8 +5,8 @@
  *      Author: gentili
  */
 
-#ifndef SDLMANAGER_H_
-#define SDLMANAGER_H_
+#ifndef GLOGIN_H_
+#define GLOGIN_H_
 
 #include <SDL.h>
 #include <vector>
@@ -15,12 +15,12 @@
 
 using namespace std;
 
-class SDLManager {
+class Glogin {
 public:
     static void mainLoop(SDL_Window* , SDL_Renderer* );
 private:
-    SDLManager() = delete;
+    Glogin() = delete;
     static std::vector<unique_ptr<SDLWidget>> widgets;
 };
 
-#endif /* SDLMANAGER_H_ */
+#endif /* GLOGIN_H_ */

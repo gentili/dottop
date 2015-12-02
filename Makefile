@@ -1,6 +1,6 @@
-OBJS =		main.o SDLManager.o SDLWidget.o
+OBJS =		main.o Glogin.o SDLWidget.o
 
-LIBS =		$(shell sdl2-config --libs)
+LIBS =		$(shell sdl2-config --libs) -lSDL2_ttf
 
 INCLUDES = 	$(shell sdl2-config --cflags)
 

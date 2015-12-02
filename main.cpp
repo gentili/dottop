@@ -7,8 +7,10 @@
 //============================================================================
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <iostream>
-#include "SDLManager.h"
+
+#include "Glogin.h"
 
 using namespace std;
 
@@ -16,6 +18,7 @@ void sdl_abort(const char* errstr) {
     cerr << "ABORT: " << errstr << " - " << SDL_GetError() << endl;
     SDL_VideoQuit();
     SDL_Quit();
+    TTF_Quit();
     exit(1);
 }
 
@@ -32,6 +35,11 @@ int main(int argc, char *argv[]) {
             return 1;
         }
 
+    }
+
+    if(TTF_Init()==-1) {
+        printf("TTF_Init: %s\n", TTF_GetError());
+        exit(2);
     }
 
     SDL_DisplayMode mode;
@@ -68,7 +76,8 @@ int main(int argc, char *argv[]) {
     SDL_ShowCursor(0);
 
     // Main loop
-    SDLManager::mainLoop(win, rnd);
+    Glogin::mainLoop(win, rnd);
+
     SDL_VideoQuit();
     SDL_Quit();
     return 0;
