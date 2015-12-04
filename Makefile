@@ -1,4 +1,4 @@
-OBJS =		main.o Glogin.o SDLWidget.o
+OBJS =		main.o Glogin.o SDLWidget.o util.o
 
 LIBS =		$(shell sdl2-config --libs) -lSDL2_ttf
 

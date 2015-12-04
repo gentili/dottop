@@ -11,16 +11,9 @@
 #include <iostream>
 
 #include "Glogin.h"
+#include "util.h"
 
 using namespace std;
-
-void sdl_abort(const char* errstr) {
-    cerr << "ABORT: " << errstr << " - " << SDL_GetError() << endl;
-    SDL_VideoQuit();
-    SDL_Quit();
-    TTF_Quit();
-    exit(1);
-}
 
 int main(int argc, char *argv[]) {
 
@@ -41,6 +34,9 @@ int main(int argc, char *argv[]) {
         printf("TTF_Init: %s\n", TTF_GetError());
         exit(2);
     }
+    auto font = TTF_OpenFont("VISITOR.FON",7);
+    if (!font)
+        sdl_abort("TTF_OpenFont()");
 
     SDL_DisplayMode mode;
     for (int m = 0; m < SDL_GetNumDisplayModes(0); m++) {
@@ -52,9 +48,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    if ((mode.w != 640) || (mode.h != 480)) {
+    if ((mode.w != 640) || (mode.h != 480))
         sdl_abort("640x480 mode not available");
-    }
 
     SDL_Window * win = SDL_CreateWindow("glogin", SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED, mode.w, mode.h, 0);// SDL_WINDOW_FULLSCREEN);
@@ -76,9 +71,10 @@ int main(int argc, char *argv[]) {
     SDL_ShowCursor(0);
 
     // Main loop
-    Glogin::mainLoop(win, rnd);
+    Glogin::mainLoop(rnd,font);
 
     SDL_VideoQuit();
     SDL_Quit();
+    TTF_Quit();
     return 0;
 }

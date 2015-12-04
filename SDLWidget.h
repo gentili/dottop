@@ -9,6 +9,7 @@
 #define SDLWIDGET_H_
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 
 class SDLWidget {
 public:
@@ -20,8 +21,9 @@ public:
 
 class ClockWidget: public SDLWidget {
 public:
-    ClockWidget() { };
-    virtual ~ClockWidget() { };
+    TTF_Font * _font;
+    ClockWidget(TTF_Font * font) : SDLWidget() { _font = font; }
+    virtual ~ClockWidget() { }
 
     virtual bool draw(SDL_Renderer * rnd);
 };

@@ -9,6 +9,7 @@
 #define GLOGIN_H_
 
 #include <SDL.h>
+#include <SDL_ttf.h>
 #include <vector>
 
 #include "SDLWidget.h"
@@ -17,7 +18,7 @@ using namespace std;
 
 class Glogin {
 public:
-    static void mainLoop(SDL_Window* , SDL_Renderer* );
+    static void mainLoop(SDL_Renderer*, TTF_Font * );
 private:
     Glogin() = delete;
     static std::vector<unique_ptr<SDLWidget>> widgets;
