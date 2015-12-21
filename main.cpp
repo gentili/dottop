@@ -1,16 +1,16 @@
 //============================================================================
-// Name        : glogin.cpp
+// Name        : dottop
 // Author      : Michael Gentili
 // Version     :
 // Copyright   : Copyright 2015
-// Description : retro graphical login interface
+// Description : graphical top
 //============================================================================
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <iostream>
 
-#include "Glogin.h"
+#include "Dottop.h"
 #include "util.h"
 
 using namespace std;
@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     if ((mode.w != 640) || (mode.h != 480))
         sdl_abort("640x480 mode not available");
 
-    SDL_Window * win = SDL_CreateWindow("glogin", SDL_WINDOWPOS_CENTERED,
+    SDL_Window * win = SDL_CreateWindow("dottop", SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED, mode.w, mode.h, 0);// SDL_WINDOW_FULLSCREEN);
     if (win == NULL)
         sdl_abort("SDL_CreateWindow()");
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     SDL_ShowCursor(0);
 
     // Main loop
-    Glogin::mainLoop(rnd,font);
+    Dottop::mainLoop(rnd,font);
 
     SDL_VideoQuit();
     SDL_Quit();

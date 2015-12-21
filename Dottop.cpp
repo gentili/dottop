@@ -1,17 +1,10 @@
-/*
- * SDLManager.cpp
- *
- *  Created on: Dec 1, 2015
- *      Author: gentili
- */
-
-#include "Glogin.h"
+#include "Dottop.h"
 
 #include <stdexcept>
 
-std::vector<unique_ptr<SDLWidget>> Glogin::widgets;
+std::vector<unique_ptr<SDLWidget>> Dottop::widgets;
 
-void Glogin::mainLoop(SDL_Renderer* renderer, TTF_Font * font) {
+void Dottop::mainLoop(SDL_Renderer* renderer, TTF_Font * font) {
     // Main loop
 
     widgets.push_back(unique_ptr<SDLWidget>(new ClockWidget(font)));

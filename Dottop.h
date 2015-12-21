@@ -5,8 +5,8 @@
  *      Author: gentili
  */
 
-#ifndef GLOGIN_H_
-#define GLOGIN_H_
+#ifndef DOTTOP_H_
+#define DOTTOP_H_
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -16,12 +16,12 @@
 
 using namespace std;
 
-class Glogin {
+class Dottop {
 public:
     static void mainLoop(SDL_Renderer*, TTF_Font * );
 private:
-    Glogin() = delete;
+    Dottop() = delete;
     static std::vector<unique_ptr<SDLWidget>> widgets;
 };
 
-#endif /* GLOGIN_H_ */
+#endif /* DOTTOP_H_ */
