@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
         printf("TTF_Init: %s\n", TTF_GetError());
         exit(2);
     }
-    auto font = TTF_OpenFont("VISITOR.FON",7);
+    auto font = TTF_OpenFont("font/VISITOR.FON",7);
     if (!font)
         sdl_abort("TTF_OpenFont()");
 
