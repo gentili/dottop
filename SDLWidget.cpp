@@ -18,7 +18,7 @@ bool ClockWidget::draw(SDL_Renderer * rnd) {
     struct tm tm = *localtime(&tv.tv_sec);
     char str[100];
 
-    sprintf(str, "%d-%d-%d %02d:%02d:%02d.%06d", tm.tm_year + 1900, tm.tm_mon + 1,
+    sprintf(str, "%d-%d-%d %02d:%02d:%02d.%06ld", tm.tm_year + 1900, tm.tm_mon + 1,
             tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,tv.tv_usec);
 
     // SDL_SetRenderDrawColor(rnd, 255, 100, 100, 255);

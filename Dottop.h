@@ -1,16 +1,9 @@
-/*
- * SDLManager.h
- *
- *  Created on: Dec 1, 2015
- *      Author: gentili
- */
-
-#ifndef DOTTOP_H_
-#define DOTTOP_H_
+#pragma once
 
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <vector>
+#include <memory>
 
 #include "SDLWidget.h"
 
@@ -23,5 +16,3 @@ private:
     Dottop() = delete;
     static std::vector<unique_ptr<SDLWidget>> widgets;
 };
-
-#endif /* DOTTOP_H_ */

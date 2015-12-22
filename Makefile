@@ -1,4 +1,4 @@
-OBJS =		main.o Dottop.o SDLWidget.o util.o
+OBJS =		main.o Dottop.o SDLWidget.o util.o CNProc.o
 
 LIBS =		$(shell sdl2-config --libs) -lSDL2_ttf
 

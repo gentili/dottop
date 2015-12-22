@@ -1,12 +1,4 @@
-/*
- * SDLWidget.h
- *
- *  Created on: Dec 1, 2015
- *      Author: gentili
- */
-
-#ifndef SDLWIDGET_H_
-#define SDLWIDGET_H_
+#pragma once
 
 #include <SDL.h>
 #include <SDL_ttf.h>
@@ -27,6 +19,3 @@ public:
 
     virtual bool draw(SDL_Renderer * rnd);
 };
-
-
-#endif /* SDLWIDGET_H_ */

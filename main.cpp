@@ -10,6 +10,7 @@
 #include <SDL_ttf.h>
 #include <iostream>
 
+#include "CNProc.h"
 #include "Dottop.h"
 #include "util.h"
 
@@ -17,6 +18,17 @@ using namespace std;
 
 int main(int argc, char *argv[]) {
 
+    if (!CNProc::connect())
+        return 1;
+
+    if (!CNProc::subscribe()) 
+        return 1;
+
+    if (!CNProc::process())
+        return 1;
+
+    cout << "Done!\n";
+    return 0;
     if (SDL_Init(0) != 0) {
         cerr << "ERROR: SDL_Init() - " << SDL_GetError() << endl;
         return 1;
