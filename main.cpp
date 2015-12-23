@@ -9,12 +9,21 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 #include <iostream>
+#include <thread>
+#include <mutex>
+#include <deque>
+#include <chrono>
 
 #include "CNProc.h"
 #include "Dottop.h"
 #include "util.h"
 
 using namespace std;
+using namespace std::chrono;
+using namespace std::chrono_literals;
+
+std::deque<struct proc_event> proc_events;
+std::mutex proc_events_mutex;
 
 int main(int argc, char *argv[]) {
 
@@ -24,10 +33,49 @@ int main(int argc, char *argv[]) {
     if (!CNProc::subscribe()) 
         return 1;
 
-    if (!CNProc::process())
-        return 1;
+    std::thread tproc([] () {
+        std::function<void(const struct proc_event&)> lambda =
+        [] (const struct proc_event & proc_ev)
+        {
+            std::lock_guard<std::mutex> l(proc_events_mutex);
+            proc_events.push_back(proc_ev);
+        };
+        CNProc::process(lambda);
+    });
 
-    cout << "Done!\n";
+    while (true) {
+        std::this_thread::sleep_for(100ms);
+        {
+            std::lock_guard<std::mutex> l(proc_events_mutex);
+            while (!proc_events.empty()) {
+                auto proc_ev(proc_events.front());
+                proc_events.pop_front();
+                switch (proc_ev.what) {
+                    case proc_event::PROC_EVENT_NONE:
+                        cout << "none" << endl;
+                        break;
+                    case proc_event::PROC_EVENT_FORK:
+                        cout << "fork" << endl;
+                        break;
+                    case proc_event::PROC_EVENT_EXEC:
+                        cout << "exec" << endl;
+                        break;
+                    case proc_event::PROC_EVENT_UID:
+                        cout << "gid" << endl;
+                        break;
+                    case proc_event::PROC_EVENT_GID:
+                        cout << "gid" << endl;
+                        break;
+                    case proc_event::PROC_EVENT_EXIT:
+                        cout << "exit" << endl;
+                        break;
+                    default:
+                        cout << "unknown" << endl;
+                        break;
+                }
+            }
+        }
+    }
     return 0;
     if (SDL_Init(0) != 0) {
         cerr << "ERROR: SDL_Init() - " << SDL_GetError() << endl;

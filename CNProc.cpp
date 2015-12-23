@@ -1,12 +1,12 @@
 #include <sys/socket.h>
 #include <linux/connector.h>
 #include <linux/netlink.h>
-#include <linux/cn_proc.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
 
 #include <iostream>
+#include <atomic>
 
 #include "CNProc.h"
 
@@ -15,6 +15,8 @@ using namespace std;
 namespace CNProc {
 
     static int nl_sock = -1;
+
+    static std::atomic_bool running(false);
 
     bool connect() {
         nl_sock = socket(PF_NETLINK,SOCK_DGRAM,NETLINK_CONNECTOR);
@@ -72,7 +74,7 @@ namespace CNProc {
         return true;
     }
 
-    bool process() {
+    bool process(std::function<void(const struct proc_event&)>& lambda) {
         if (nl_sock == -1) {
             cerr << __func__ << "() - no socket" << endl;
             return false;
@@ -84,40 +86,25 @@ namespace CNProc {
                 struct proc_event proc_ev;
             };
         } nlcn_msg;
-
-        while (true) {
+        running.store(true);
+        while (running) {
             int rc = recv(nl_sock, &nlcn_msg, sizeof(nlcn_msg), 0);
             if (rc == 0) {
                 cerr << __func__ << "() - recv() - no data" << endl;
+                running.store(false);
                 return false;
             } else if (rc == -1) {
                 cerr << __func__ << "() - send() - " << strerror(errno) << endl;
+                running.store(false);
                 return false;
             }
-            switch (nlcn_msg.proc_ev.what) {
-                case proc_event::PROC_EVENT_NONE:
-                    cout << "start" << endl;
-                    break;
-                case proc_event::PROC_EVENT_FORK:
-                    cout << "fork" << endl;
-                    break;
-                case proc_event::PROC_EVENT_EXEC:
-                    cout << "exec" << endl;
-                    break;
-                case proc_event::PROC_EVENT_UID:
-                    cout << "gid" << endl;
-                    break;
-                case proc_event::PROC_EVENT_GID:
-                    cout << "gid" << endl;
-                    break;
-                case proc_event::PROC_EVENT_EXIT:
-                    cout << "exit" << endl;
-                    break;
-                default:
-                    cout << "unknown" << endl;
-                    break;
-            }
+            lambda(nlcn_msg.proc_ev);
         }
-        
+        running.store(false);
+        return true;
+    }
+
+    void stop() {
+        running.store(false);
     }
 }

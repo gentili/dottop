@@ -1,12 +1,12 @@
 OBJS =		main.o Dottop.o SDLWidget.o util.o CNProc.o
 
-LIBS =		$(shell sdl2-config --libs) -lSDL2_ttf
+LIBS =		$(shell sdl2-config --libs) -lSDL2_ttf -pthread
 
 INCLUDES = 	$(shell sdl2-config --cflags)
 
 TARGET =	dottop
 
-CXXFLAGS =	-O2 -g -Wall -std=c++11 -fmessage-length=0 $(INCLUDES) 
+CXXFLAGS =	-O2 -g -Wall -std=c++14 -fmessage-length=0 $(INCLUDES) 
 
 $(TARGET):	$(OBJS)
 	$(CXX) -o $(TARGET) $(OBJS) $(LIBS)
