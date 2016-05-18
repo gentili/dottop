@@ -9,7 +9,7 @@ AC_CONFIG_FILES([
                  Makefile
                  display/Makefile
                  procevents/Makefile
-                 dottop/Makefile
+                 dtop/Makefile
                  ])
 
 # Checks for programs.

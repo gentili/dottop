@@ -1,1 +1,1 @@
-SUBDIRS = display procevents dottop
+SUBDIRS = display procevents dtop

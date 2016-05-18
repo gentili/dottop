@@ -10,15 +10,11 @@ config.log
 config.status
 configure
 depcomp
-display/.deps/
-display/Makefile
-display/Makefile.in
 install-sh
 missing
 .deps/
-mtop/Makefile
-mtop/Makefile.in
-mtop/mtop
 stamp-h1
 *.o
 *.a
+.ycm_extra_conf.pyc
+dtop/dtop
