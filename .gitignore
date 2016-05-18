@@ -1,31 +1,24 @@
-# Compiled Object files
-*.slo
-*.lo
+INSTALL
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+compile
+config.h
+config.h.in
+config.log
+config.status
+configure
+depcomp
+display/.deps/
+display/Makefile
+display/Makefile.in
+install-sh
+missing
+.deps/
+mtop/Makefile
+mtop/Makefile.in
+mtop/mtop
+stamp-h1
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-
-# Compiled Static libraries
-*.lai
-*.la
 *.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-.ycm_extra_conf.pyc
-dottop

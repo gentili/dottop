@@ -1,2 +1,2 @@
 noinst_LIBRARIES = libprocevents.a
-libdisplay_a_SOURCES = CNProc.cpp
+libprocevents_a_SOURCES = CNProc.cpp

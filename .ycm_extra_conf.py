@@ -37,9 +37,8 @@ flags = [
     '-x',
     'c++',
     '-D_REENTRANT',
-    '-I/usr/include/SDL2',
     '-Wall',
-    '-std=c++14',
+    '-std=c++11',
 ]
 
 

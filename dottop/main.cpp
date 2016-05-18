@@ -6,8 +6,6 @@
 // Description : graphical top
 //============================================================================
 
-#include <SDL.h>
-#include <SDL_ttf.h>
 #include <iostream>
 #include <thread>
 #include <mutex>
@@ -20,10 +18,11 @@
 
 using namespace std;
 using namespace std::chrono;
-using namespace std::chrono_literals;
 
 std::deque<struct proc_event> proc_events;
 std::mutex proc_events_mutex;
+
+const std::chrono::milliseconds ms100(100);
 
 int main(int argc, char *argv[]) {
 
@@ -44,7 +43,7 @@ int main(int argc, char *argv[]) {
     });
 
     while (true) {
-        std::this_thread::sleep_for(100ms);
+        std::this_thread::sleep_for(ms100);
         {
             std::lock_guard<std::mutex> l(proc_events_mutex);
             while (!proc_events.empty()) {
