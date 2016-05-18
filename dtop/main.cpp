@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-    return 0;
+
     if (SDL_Init(0) != 0) {
         cerr << "ERROR: SDL_Init() - " << SDL_GetError() << endl;
         return 1;
