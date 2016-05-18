@@ -14,9 +14,9 @@
 #include <deque>
 #include <chrono>
 
-#include "CNProc.h"
-#include "Dottop.h"
-#include "util.h"
+#include "procevents/CNProc.h"
+#include "display/Screen.h"
+#include "display/util.h"
 
 using namespace std;
 using namespace std::chrono;
