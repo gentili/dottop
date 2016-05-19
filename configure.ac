@@ -20,12 +20,11 @@ AC_LANG([C++])
 AX_CXX_COMPILE_STDCXX_11
 
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lncurses':
-#AC_CHECK_LIB([ncurses], [main], [], AC_MSG_ERROR([Missing required library]))
-# FIXME: Replace `main' with a function in `-lprocps':
-#AC_CHECK_LIB([procps], [main], [], AC_MSG_ERROR([Missing required library]))
+AC_CHECK_LIB([procps], [openproc], [], AC_MSG_ERROR([Missing required library]))
+AC_CHECK_HEADER([proc/readproc.h],[],AC_MSG_ERROR([Missing required header]))
 AC_CHECK_LIB([pthread], [pthread_create], [], AC_MSG_ERROR([Missing required library]))
 AC_CHECK_LIB([SDL2_ttf], [TTF_Init], [], AC_MSG_ERROR([Missing required library]))
+AC_CHECK_HEADER([SDL2/SDL_ttf.h], [], AC_MSG_ERROR([Missing required library]))
 
 # SDL2 specific setup
 dnl Check for SDL2

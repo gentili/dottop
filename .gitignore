@@ -18,3 +18,5 @@ stamp-h1
 *.a
 .ycm_extra_conf.pyc
 dtop/dtop
+procevents/testCNProc
+procevents/testlibproc
