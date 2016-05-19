@@ -39,6 +39,7 @@ flags = [
     '-D_REENTRANT',
     '-Wall',
     '-std=c++11',
+    '-I.'
 ]
 
 
