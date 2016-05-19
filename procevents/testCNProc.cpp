@@ -48,7 +48,9 @@ int main(int argc, char *argv[]) {
                         cout << "none" << endl;
                         break;
                     case proc_event::PROC_EVENT_FORK:
-                        cout << "fork" << endl;
+                        cout << "fork " << proc_ev.event_data.fork.parent_pid <<
+                            "->" << proc_ev.event_data.fork.child_pid <<
+                            endl;
                         break;
                     case proc_event::PROC_EVENT_EXEC:
                         cout << "exec" << endl;
