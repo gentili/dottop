@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
                         cout << "exec" << endl;
                         break;
                     case proc_event::PROC_EVENT_UID:
-                        cout << "gid" << endl;
+                        cout << "uid" << endl;
                         break;
                     case proc_event::PROC_EVENT_GID:
                         cout << "gid" << endl;
