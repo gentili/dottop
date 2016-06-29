@@ -9,6 +9,12 @@
 using namespace std;
 
 int main(int argc, char *argv[]) {
-    ProcEvents::trackEvents();
+    /**
+     * ProcEvent::process()
+     *  CNProc::connect()
+     *  CNProc::subscribe() - proc events start to pile up
+     *  openproc - send cur procs as events
+     *  CNProc::process() - send along events
+     */
     return 0;
 }

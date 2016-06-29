@@ -4,7 +4,6 @@
 using namespace std;
 
 namespace ProcEvents {
-    void trackEvents() {
-        cout << "trackem!" << endl;
+    void process(std::function<void(const int&)>&) {
     }
 }

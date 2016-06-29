@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 namespace ProcEvents {
-    void trackEvents();
+    void process(std::function<void(const int&)>&);
 }
